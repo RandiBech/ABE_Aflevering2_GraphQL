@@ -8,3 +8,37 @@ import {
     GraphQLNonNull,
     printSchema,
   } from 'graphql';
+import {HotelType, RoomType} from './types/hotel-type';
+
+const QueryType = new GraphQLObjectType({
+  name: 'QueryHotel',
+  fields: {
+    createHotel: {
+      type: HotelType,
+      args: {
+        id: {type: new GraphQLNonNull(GraphQLID)},
+        name: {type: new GraphQLNonNull(GraphQLString)},
+        managerId: {type: new GraphQLNonNull(GraphQLID)},
+        rooms: {type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(RoomType)))}
+      },
+      resolve: function (source, {id, name, managerId, rooms}){
+        //return method from utils
+      }
+    },
+    createRoomToHotel: {
+
+    },
+    createReservation: {
+
+    },
+    getAvailableRooms: {
+
+    },
+    getHotelsWithRooms: {
+
+    },
+    getHotelFromId: {
+
+    }
+  }
+})

@@ -7,7 +7,7 @@ import {
     GraphQLID,
 } from 'graphql';
 
-const HotelType = new GraphQLObjectType({
+export const HotelType = new GraphQLObjectType({
     name: 'Hotel',
     description: 'Hotel schema',
     fields: {
@@ -18,7 +18,7 @@ const HotelType = new GraphQLObjectType({
     }
 })
 
-const RoomType = new GraphQLObjectType({
+export const RoomType = new GraphQLObjectType({
     name: 'Room',
     description: 'Room in hotel',
     fields: {
@@ -28,7 +28,7 @@ const RoomType = new GraphQLObjectType({
     }
 })
 
-const ReservationType = new GraphQLObjectType({
+export const ReservationType = new GraphQLObjectType({
     name: 'Reservation',
     description: 'Reservation in Room',
     fields: {
