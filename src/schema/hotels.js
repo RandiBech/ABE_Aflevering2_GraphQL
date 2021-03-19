@@ -8,7 +8,7 @@ import {
     GraphQLNonNull,
     printSchema,
   } from 'graphql';
-import {HotelType, RoomType} from './types/hotel-type';
+import {HotelType, ReservationType, RoomType} from './types/hotel-type';
 
 const QueryType = new GraphQLObjectType({
   name: 'QueryHotel',
@@ -25,18 +25,38 @@ const QueryType = new GraphQLObjectType({
         //return method from utils
       }
     },
+
     createRoomToHotel: {
 
     },
-    createReservation: {
 
+    createReservation: {
+      type: ReservationType,
+      args: {
+        id: {type: new GraphQLNonNull(GraphQLID)},
+        guestId: { type: new GraphQLNonNull(GraphQLID) },
+        dateStart: {
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: (source) => source.dateStart.toISOString(),
+        },
+        dateEnd: {
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: (source) => source.dateEnd.toISOString(),
+        }
+      },
+      resolve: function (source, {id, guestId, dateStart, dateEnd}){
+        //Return method from utils
+      },
     },
+
     getAvailableRooms: {
 
     },
+
     getHotelsWithRooms: {
 
     },
+    
     getHotelFromId: {
 
     }
