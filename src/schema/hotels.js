@@ -13,7 +13,7 @@ import {HotelType, RoomType} from './types/hotel-type';
 const QueryType = new GraphQLObjectType({
   name: 'QueryHotel',
   fields: {
-    createHotel: {
+    createHotel: { // Randi
       type: HotelType,
       args: {
         id: {type: new GraphQLNonNull(GraphQLID)},
@@ -25,19 +25,19 @@ const QueryType = new GraphQLObjectType({
         //return method from utils
       }
     },
-    createRoomToHotel: {
+    createRoomToHotel: { // Randi
 
     },
-    createReservation: {
+    createReservation: { // Alex
 
     },
-    getAvailableRooms: {
+    getAvailableRooms: { // Alex
 
     },
-    getHotelsWithRooms: {
+    getHotelsWithRooms: { // Mads
 
     },
-    getHotelFromId: {
+    getHotelFromId: { // Mads
 
     }
   }
