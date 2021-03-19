@@ -1,5 +1,5 @@
-const hotelCollection = require('../models/hotel');
-const userCollection = require('../models/user');
+const hotelCollection = require('../db/hotel');
+const userCollection = require('../db/user');
 const role = require('../helpers/role');
 
 // GET home page 

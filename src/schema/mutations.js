@@ -1,5 +1,4 @@
-// QueryType med fields. Fields med metoder indeholdende type, 
-// args og resolver (resolver kalder ny metode fra utils med logikken)
+// her skrives alle post og put metoder
 
 import {
     GraphQLSchema,
@@ -10,27 +9,28 @@ import {
   } from 'graphql';
 import {HotelType, ReservationType, RoomType} from './types/hotel-type';
 
-const QueryType = new GraphQLObjectType({
-  name: 'QueryHotel',
+const MutationType = new GraphQLObjectType({
+  name: 'Mutation',
   fields: {
     createHotel: { // Randi
       type: HotelType,
-      args: {
+      args: { //lav args til input type med de specifikke args heri. lægges under schema/types
         id: {type: new GraphQLNonNull(GraphQLID)},
         name: {type: new GraphQLNonNull(GraphQLString)},
         managerId: {type: new GraphQLNonNull(GraphQLID)},
         rooms: {type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(RoomType)))}
       },
       resolve: function (source, {id, name, managerId, rooms}){
-        //return method from utils
+        //Return method defineres i db/mongoose-api.js
       }
     },
     createRoomToHotel: { // Randi
-
+        //lav args til input type med de specifikke args heri. lægges under schema/types
+        //Return method defineres i db/mongoose-api.js
     },
     createReservation: { // Alex
       type: ReservationType,
-      args: {
+      args: { //lav args til input type med de specifikke args heri. lægges under schema/types
         id: {type: new GraphQLNonNull(GraphQLID)},
         guestId: { type: new GraphQLNonNull(GraphQLID) },
         dateStart: {
@@ -43,17 +43,8 @@ const QueryType = new GraphQLObjectType({
         }
       },
       resolve: function (source, {id, guestId, dateStart, dateEnd}){
-        //Return method from utils
+        //Return method defineres i db/mongoose-api.js
       },
-    },
-    getAvailableRooms: { // Alex
-
-    },
-    getHotelsWithRooms: { // Mads
-
-    },
-    getHotelFromId: { // Mads
-
     }
   }
 })

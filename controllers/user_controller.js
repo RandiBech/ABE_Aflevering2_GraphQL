@@ -1,5 +1,5 @@
 const role = require('../helpers/role');
-const userCollection = require('../models/user'); 
+const userCollection = require('../db/user'); 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 

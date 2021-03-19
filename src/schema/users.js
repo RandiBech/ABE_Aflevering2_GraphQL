@@ -5,6 +5,8 @@ import {
     GraphQLObjectType,
   } from 'graphql';
 
+
+  //Denne skal også fordeles i mutation og queries
 const QueryType = new GraphQLObjectType({
   name: 'QueryUser',
   fields: {
@@ -25,3 +27,4 @@ const QueryType = new GraphQLObjectType({
     }
   }
 })
+
