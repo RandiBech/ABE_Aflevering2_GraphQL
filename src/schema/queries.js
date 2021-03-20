@@ -7,6 +7,7 @@ import {
     printSchema,
     GraphQLID,
     GraphQLList,
+    GraphQLID
   } from 'graphql';
 import {
   HotelType, 
@@ -43,12 +44,9 @@ const QueryType = new GraphQLObjectType({
     getHotelsWithRooms: { // Mads
          //lav args til input type med de specifikke args heri. lægges under schema/types
         //Return method defineres i db/mongoose-api.js
-        type: HotelType,
-        args: {
-          id: {type: new GraphQLNonNull(GraphQLID)}
-        },
-        resolve: function (source, args, {loaders}){
-          return loaders.getHotelsWithRooms(args.id);
+        type: new GraphQLList(new GraphQLNonNull(HotelType)),
+        resolve: async (source, args, {loaders}) => {
+          return loaders.getHotelsWithRooms({});
         },
     },
     getHotelFromId: { // Mads
@@ -62,6 +60,10 @@ const QueryType = new GraphQLObjectType({
           return loaders.getHotelFromId(args.id); 
         },
     },
+    // getAvailableRooms: { // Alex
+    //      //lav args til input type med de specifikke args heri. lægges under schema/types
+    //     //Return method defineres i db/mongoose-api.js
+    // },
   }
 })
 

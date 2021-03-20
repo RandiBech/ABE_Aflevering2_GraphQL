@@ -1,15 +1,18 @@
 import mongooseClient from './mongoose-client';
 
 const hotelCollection = require('./hotel');
-const mongoose = require('mongoose');
 
 const mongooseApiWrapper = async () => {
     await mongooseClient();
     return {
         //queries
         queries: {
-            getHotelFromId: async (hotelIds) => {
-                const response = await hotelCollection.findById(hotelIds)
+            getHotelFromId: async (hotelId) => {
+                const hotel = await hotelCollection.findById(hotelId); 
+                return hotel; 
+            },
+            getHotelsWithRooms: async () => {
+                const response = await hotelCollection.find({}); 
                 return response; 
             },
             getAvailableRoomsByDate: async () => {
@@ -39,6 +42,24 @@ const mongooseApiWrapper = async () => {
                 });
                 if (!response) {
                     throw new Error('Not able to create hotel');
+                }
+                return response;
+            },
+            createRoomToHotel: async (hotelId, rooms) => {
+                const oldHotel = await hotelCollection.findById(hotelId);
+                const roomsToAdd = rooms;
+                let hotelRooms = oldHotel.rooms;
+                if(hotelRooms){
+                    hotelRooms.push(roomsToAdd);
+                } else{
+                    hotelRooms = roomsToAdd;
+                }
+                
+                const response = await hotelCollection.findByIdAndUpdate(hotelId, {
+                    rooms: hotelRooms
+                }, {new: true});
+                if (!response) {
+                    throw new Error('Not able to create rooms for hotel');
                 }
                 return response;
             },
