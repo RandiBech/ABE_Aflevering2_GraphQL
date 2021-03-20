@@ -7,8 +7,6 @@ import {
     GraphQLList,
 } from 'graphql';
 
-import {RoomType} from './hotel-type';
-
 export const HotelInput = new GraphQLInputObjectType({
     name: 'HotelInput',
     fields: () => ({

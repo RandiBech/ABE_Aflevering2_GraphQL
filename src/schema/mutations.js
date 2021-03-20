@@ -1,5 +1,3 @@
-// her skrives alle post og put metoder
-
 import {
   GraphQLSchema,
   GraphQLObjectType,
@@ -43,13 +41,11 @@ const MutationType = new GraphQLObjectType({
        resolve: function (source, args, {mutators}){
          return mutators.createRoomToHotel(args.hotelId, args.input);
        },
-        //lav args til input type med de specifikke args heri. lægges under schema/types
-        //Return method defineres i db/mongoose-api.js
     },
 
     createReservation: { // Alex
       type: ReservationType,
-      args: { //lav args til input type med de specifikke args heri. lægges under schema/types
+      args: { 
         input: { type: new GraphQLNonNull(ReservationInput) }
       },
       resolve: function (source, {id, guestId, dateStart, dateEnd}){

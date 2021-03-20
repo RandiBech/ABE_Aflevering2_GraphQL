@@ -1,13 +1,9 @@
-//meget af det fra app.js
-
-//se også server.js fra d06i-mutations
 import express from 'express';
 import cors from 'cors';
 import * as config from './config';
 import mongooseApiWrapper from './db/mongoose-api.js';
 import { graphqlHTTP } from 'express-graphql';
 import { schema } from './schema';
-import DataLoader from 'dataloader'; 
 
 async function main() {
     const mongooseApi = await mongooseApiWrapper();
