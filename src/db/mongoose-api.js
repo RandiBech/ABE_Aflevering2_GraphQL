@@ -7,6 +7,12 @@ const mongooseApiWrapper = async () => {
     await mongooseClient();
     return {
         //queries
+        queries: {
+            getHotelFromId: async (hotelIds) => {
+                const response = await hotelCollection.findById(hotelIds)
+                return response; 
+            }
+        },
         mutators: {
             createHotel: async ({ input }) => {
                 const response = await hotelCollection.create({

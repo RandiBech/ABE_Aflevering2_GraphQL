@@ -7,6 +7,7 @@ import * as config from './config';
 import mongooseApiWrapper from './db/mongoose-api.js';
 import { graphqlHTTP } from 'express-graphql';
 import { schema } from './schema';
+import DataLoader from 'dataloader'; 
 
 async function main() {
     const mongooseApi = await mongooseApiWrapper();
@@ -17,12 +18,19 @@ async function main() {
     server.use('/:fav.ico', (req, res) => res.sendStatus(204));
 
     server.use('/graphql', (req, res) =>{
+<<<<<<< HEAD
+      const loaders = {
+        // hotels: new DataLoader((hotelIds) => mongooseApi.getHotelFromId(hotelIds)),
+        ...mongooseApi.queries,
+      };
+=======
+>>>>>>> 9f7921da0b29d4035fb4702e7fb29ace3b0550ce
         const mutators = {
             ...mongooseApi.mutators,
         };
         graphqlHTTP({
             schema,
-            context: {mongooseApi, mutators},
+            context: {mongooseApi, loaders, mutators},
             graphiql: true,
             customFormatErrorFn: (err) => {
                 const errorReport = {

@@ -1,3 +1,4 @@
+//import { load } from 'dotenv/types';
 import {
     GraphQLSchema,
     GraphQLObjectType,
@@ -38,18 +39,28 @@ const QueryType = new GraphQLObjectType({
         return 'Hotelcreted';
       },
     },
-    // getAvailableRooms: { // Alex
-    //      //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     //Return method defineres i db/mongoose-api.js
-    // },
-    // getHotelsWithRooms: { // Mads
-    //      //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     //Return method defineres i db/mongoose-api.js
-    // },
-    // getHotelFromId: { // Mads
-    //      //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     //Return method defineres i db/mongoose-api.js
-    // }
+    getHotelsWithRooms: { // Mads
+         //lav args til input type med de specifikke args heri. lægges under schema/types
+        //Return method defineres i db/mongoose-api.js
+        type: HotelType,
+        args: {
+          id: {type: new GraphQLNonNull(GraphQLID)}
+        },
+        resolve: function (source, args, {loaders}){
+          return loaders.getHotelsWithRooms(args.id);
+        },
+    },
+    getHotelFromId: { // Mads
+         //lav args til input type med de specifikke args heri. lægges under schema/types
+        //Return method defineres i db/mongoose-api.js
+        type: HotelType, 
+        args: {
+          id: { type: new GraphQLNonNull(GraphQLID)},
+        },
+        resolve: function (source, args, {loaders}){
+          return loaders.getHotelFromId(args.id); 
+        },
+    },
   }
 })
 
