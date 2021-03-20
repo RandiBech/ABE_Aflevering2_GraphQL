@@ -5,6 +5,7 @@ import {
     GraphQLString,
     GraphQLNonNull,
     printSchema,
+    GraphQLID,
     GraphQLList,
   } from 'graphql';
 import {
