@@ -1,4 +1,4 @@
-//import { load } from 'dotenv/types';
+
 import {
     GraphQLSchema,
     GraphQLObjectType,
@@ -41,16 +41,13 @@ const QueryType = new GraphQLObjectType({
       },
     },
     getHotelsWithRooms: { // Mads
-         //lav args til input type med de specifikke args heri. lægges under schema/types
-        //Return method defineres i db/mongoose-api.js
+
         type: new GraphQLList(new GraphQLNonNull(HotelType)),
         resolve: async (source, args, {loaders}) => {
           return loaders.getHotelsWithRooms({});
         },
     },
     getHotelFromId: { // Mads
-         //lav args til input type med de specifikke args heri. lægges under schema/types
-        //Return method defineres i db/mongoose-api.js
         type: HotelType, 
         args: {
           id: { type: new GraphQLNonNull(GraphQLID)},
@@ -59,10 +56,6 @@ const QueryType = new GraphQLObjectType({
           return loaders.getHotelFromId(args.id); 
         },
     },
-    // getAvailableRooms: { // Alex
-    //      //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     //Return method defineres i db/mongoose-api.js
-    // },
   }
 })
 

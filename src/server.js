@@ -15,7 +15,6 @@ async function main() {
 
   server.use('/graphql', (req, res) => {
     const loaders = {
-      // hotels: new DataLoader((hotelIds) => mongooseApi.getHotelFromId(hotelIds)),
       ...mongooseApi.queries,
     };
     const mutators = {

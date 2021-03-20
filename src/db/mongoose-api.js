@@ -5,7 +5,6 @@ const hotelCollection = require('./hotel');
 const mongooseApiWrapper = async () => {
     await mongooseClient();
     return {
-        //queries
         queries: {
             getHotelFromId: async (hotelId) => {
                 const hotel = await hotelCollection.findById(hotelId); 
