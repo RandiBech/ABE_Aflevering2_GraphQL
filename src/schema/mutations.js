@@ -17,7 +17,8 @@ import {
 
 import {
   HotelInput,
-  ReservationInput
+  ReservationInput,
+  RoomInput
 } from './types/input-hotel';
 
 const MutationType = new GraphQLObjectType({
@@ -35,6 +36,13 @@ const MutationType = new GraphQLObjectType({
 
     createRoomToHotel: { // Randi
       type: HotelType,
+      args: {
+        hotelId: {type: new GraphQLNonNull(GraphQLID)},
+        input: {type: new GraphQLNonNull(RoomInput)}
+       },
+       resolve: function (source, args, {mutators}){
+         return mutators.createRoomToHotel(args.hotelId, args.input);
+       },
         //lav args til input type med de specifikke args heri. lægges under schema/types
         //Return method defineres i db/mongoose-api.js
     },
