@@ -18,13 +18,11 @@ async function main() {
     server.use('/:fav.ico', (req, res) => res.sendStatus(204));
 
     server.use('/graphql', (req, res) =>{
-<<<<<<< HEAD
       const loaders = {
         // hotels: new DataLoader((hotelIds) => mongooseApi.getHotelFromId(hotelIds)),
         ...mongooseApi.queries,
       };
-=======
->>>>>>> 9f7921da0b29d4035fb4702e7fb29ace3b0550ce
+
         const mutators = {
             ...mongooseApi.mutators,
         };

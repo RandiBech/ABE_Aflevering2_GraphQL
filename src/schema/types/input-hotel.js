@@ -41,3 +41,4 @@ export const RoomInput = new GraphQLInputObjectType({
     })
 })
 
+export default HotelInput

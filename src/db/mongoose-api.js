@@ -8,8 +8,12 @@ const mongooseApiWrapper = async () => {
     return {
         //queries
         queries: {
-            getHotelFromId: async (hotelIds) => {
-                const response = await hotelCollection.findById(hotelIds)
+            getHotelFromId: async (hotelId) => {
+                const hotel = await hotelCollection.findById(hotelId); 
+                return hotel; 
+            },
+            getHotelsWithRooms: async () => {
+                const response = await hotelCollection.find({}); 
                 return response; 
             }
         },

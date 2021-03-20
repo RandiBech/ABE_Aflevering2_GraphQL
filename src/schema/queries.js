@@ -6,6 +6,7 @@ import {
     GraphQLNonNull,
     printSchema,
     GraphQLID,
+    GraphQLList,
   } from 'graphql';
 import {HotelType, ReservationType, RoomType} from './types/hotel-type';
 import HotelInput from './types/input-hotel';
@@ -30,16 +31,12 @@ const QueryType = new GraphQLObjectType({
         return 'Hotelcreted';
       },
     },
-<<<<<<< HEAD
     getHotelsWithRooms: { // Mads
          //lav args til input type med de specifikke args heri. lægges under schema/types
         //Return method defineres i db/mongoose-api.js
-        type: HotelType,
-        args: {
-          id: {type: new GraphQLNonNull(GraphQLID)}
-        },
-        resolve: function (source, args, {loaders}){
-          return loaders.getHotelsWithRooms(args.id);
+        type: new GraphQLList(new GraphQLNonNull(HotelType)),
+        resolve: async (source, args, {loaders}) => {
+          return loaders.getHotelsWithRooms({});
         },
     },
     getHotelFromId: { // Mads
@@ -53,20 +50,10 @@ const QueryType = new GraphQLObjectType({
           return loaders.getHotelFromId(args.id); 
         },
     },
-=======
     // getAvailableRooms: { // Alex
     //      //lav args til input type med de specifikke args heri. lægges under schema/types
     //     //Return method defineres i db/mongoose-api.js
     // },
-    // getHotelsWithRooms: { // Mads
-    //      //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     //Return method defineres i db/mongoose-api.js
-    // },
-    // getHotelFromId: { // Mads
-    //      //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     //Return method defineres i db/mongoose-api.js
-    // }
->>>>>>> 36ae1e285ef8a75dd14a50c8fb6a754ffb44a96c
   }
 })
 
