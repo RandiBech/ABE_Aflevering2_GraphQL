@@ -13,7 +13,15 @@ const mongooseApiWrapper = async() =>{
                     rooms: input.rooms
                 });
                 return response;
-            }
+            },
+            createReservation: async ({input}) => {
+                const response = await hotelCollection.create({
+                    guestId: input.guestId,
+                    dateStart: input.dateStart,
+                    dateEnd: input.dateEnd
+                });
+                return response;
+            },
         }
     }
 }
