@@ -19,3 +19,21 @@ const HotelInput = new GraphQLInputObjectType({
 })
 
 export default HotelInput;
+
+const ReservationInput = new GraphQLInputObjectType({
+    name: 'ReservatuinInput',
+    fields: () => ({
+        id: { type: new GraphQLNonNull(GraphQLID)},
+        guestId: { type: new GraphQLNonNull(GraphQLID) },
+        dateStart: {
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: (source) => source.dateEnd.toISOString()
+        },
+        dateEnd: {
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: (source) => source.dateEnd.toISOString(),
+        }
+    })
+})
+
+export default ReservationInput;
