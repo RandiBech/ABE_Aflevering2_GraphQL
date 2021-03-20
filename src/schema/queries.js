@@ -7,7 +7,6 @@ import {
     printSchema,
     GraphQLID,
     GraphQLList,
-    GraphQLID
   } from 'graphql';
 import {
   HotelType, 
