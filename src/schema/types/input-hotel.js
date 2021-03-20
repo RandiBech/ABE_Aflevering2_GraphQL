@@ -3,6 +3,7 @@ import {
     GraphQLString,
     GraphQLNonNull,
     GraphQLID,
+    GraphQLInt,
     GraphQLList,
 } from 'graphql';
 
@@ -14,7 +15,7 @@ export const HotelInput = new GraphQLInputObjectType({
         id: {type: new GraphQLNonNull(GraphQLID)},
         name: {type: new GraphQLNonNull(GraphQLString)},
         managerId: {type: new GraphQLNonNull(GraphQLID)},
-        rooms: {type: GraphQLList(RoomType)}
+        rooms: {type: GraphQLList(RoomInput)}
     })
 })
 
@@ -29,6 +30,15 @@ export const ReservationInput = new GraphQLInputObjectType({
         dateEnd: {
             type: new GraphQLNonNull(GraphQLString)
         }
+    })
+})
+
+export const RoomInput = new GraphQLInputObjectType({
+    name: 'RoomInput',
+    fields: () => ({
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        roomNo: { type: new GraphQLNonNull(GraphQLInt) },
+        reservations: { type: GraphQLList(ReservationInput) }
     })
 })
 
