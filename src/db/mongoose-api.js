@@ -4,6 +4,12 @@ const hotelCollection = require('./hotel');
 const mongooseApiWrapper = async() =>{
     return {
         //queries
+        queries: {
+            getHotelFromId: async (hotelIds) => {
+                const response = await hotelCollection.findById(hotelIds)
+                return response; 
+            }
+        },
         mutators: {
             createHotel: async ({input}) => {
                 const response = await hotelCollection.create({
