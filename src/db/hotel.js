@@ -1,6 +1,4 @@
 const mongoose = require('mongoose'); 
-//const { User } = require('../helpers/role');
-//const User = require('./user');
 
 const hotelSchema = new mongoose.Schema({
     name: String,

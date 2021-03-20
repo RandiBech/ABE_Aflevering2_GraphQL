@@ -1,6 +1,3 @@
-//meget af det fra app.js
-
-//se også server.js fra d06i-mutations
 import express from 'express';
 import cors from 'cors';
 import * as config from './config';

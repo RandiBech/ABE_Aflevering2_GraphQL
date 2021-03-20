@@ -87,5 +87,3 @@ const mongooseApiWrapper = async () => {
 }
 
 export default mongooseApiWrapper;
-
-//se scr/db/pg-client.js fra d06i-mutations for inspiration
