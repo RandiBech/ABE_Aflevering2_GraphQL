@@ -1,15 +1,24 @@
 // her skrives alle post og put metoder
 
 import {
-    GraphQLSchema,
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLNonNull,
-    printSchema,
-    GraphQLID,
-  } from 'graphql';
-import {HotelType, ReservationType, RoomType} from './types/hotel-type';
-import HotelInput from './types/input-hotel';
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLNonNull,
+  printSchema,
+  GraphQLID,
+} from 'graphql';
+
+import {
+  HotelType, 
+  ReservationType, 
+  RoomType
+} from './types/hotel-type';
+
+import {
+  HotelInput,
+  ReservationInput
+} from './types/input-hotel';
 
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
@@ -23,29 +32,22 @@ const MutationType = new GraphQLObjectType({
         return mutators.createHotel({input});
       },
     },
-    // createRoomToHotel: { // Randi
-    //   type: HotelType,
-    //     //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     //Return method defineres i db/mongoose-api.js
-    // },
-    // createReservation: { // Alex
-    //   type: ReservationType,
-    //   args: { //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     id: {type: new GraphQLNonNull(GraphQLID)},
-    //     guestId: { type: new GraphQLNonNull(GraphQLID) },
-    //     dateStart: {
-    //         type: new GraphQLNonNull(GraphQLString),
-    //         resolve: (source) => source.dateStart.toISOString(),
-    //     },
-    //     dateEnd: {
-    //         type: new GraphQLNonNull(GraphQLString),
-    //         resolve: (source) => source.dateEnd.toISOString(),
-    //     }
-    //   },
-    //   resolve: function (source, {id, guestId, dateStart, dateEnd}){
-    //     //Return method defineres i db/mongoose-api.js
-    //   },
-    // }
+
+    createRoomToHotel: { // Randi
+      type: HotelType,
+        //lav args til input type med de specifikke args heri. lægges under schema/types
+        //Return method defineres i db/mongoose-api.js
+    },
+
+    createReservation: { // Alex
+      type: ReservationType,
+      args: { //lav args til input type med de specifikke args heri. lægges under schema/types
+        input: { type: new GraphQLNonNull(ReservationInput) }
+      },
+      resolve: function (source, {id, guestId, dateStart, dateEnd}){
+        return mutators.createReservation({input});
+      },
+    }
   }
 });
 
