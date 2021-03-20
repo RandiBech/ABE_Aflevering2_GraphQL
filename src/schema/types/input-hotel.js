@@ -24,12 +24,10 @@ export const ReservationInput = new GraphQLInputObjectType({
         id: { type: new GraphQLNonNull(GraphQLID)},
         guestId: { type: new GraphQLNonNull(GraphQLID) },
         dateStart: {
-            type: new GraphQLNonNull(GraphQLString),
-            resolve: (source) => source.dateEnd.toISOString()
+            type: new GraphQLNonNull(GraphQLString)
         },
         dateEnd: {
-            type: new GraphQLNonNull(GraphQLString),
-            resolve: (source) => source.dateEnd.toISOString(),
+            type: new GraphQLNonNull(GraphQLString)
         }
     })
 })
