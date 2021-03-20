@@ -23,30 +23,30 @@ const MutationType = new GraphQLObjectType({
         return mutators.createHotel({input});
       },
     },
-    createRoomToHotel: { // Randi
-      type: HotelType,
-        //lav args til input type med de specifikke args heri. lægges under schema/types
-        //Return method defineres i db/mongoose-api.js
-    },
-    createReservation: { // Alex
-      type: ReservationType,
-      args: { //lav args til input type med de specifikke args heri. lægges under schema/types
-        id: {type: new GraphQLNonNull(GraphQLID)},
-        guestId: { type: new GraphQLNonNull(GraphQLID) },
-        dateStart: {
-            type: new GraphQLNonNull(GraphQLString),
-            resolve: (source) => source.dateStart.toISOString(),
-        },
-        dateEnd: {
-            type: new GraphQLNonNull(GraphQLString),
-            resolve: (source) => source.dateEnd.toISOString(),
-        }
-      },
-      resolve: function (source, {id, guestId, dateStart, dateEnd}){
-        //Return method defineres i db/mongoose-api.js
-      },
-    }
+    // createRoomToHotel: { // Randi
+    //   type: HotelType,
+    //     //lav args til input type med de specifikke args heri. lægges under schema/types
+    //     //Return method defineres i db/mongoose-api.js
+    // },
+    // createReservation: { // Alex
+    //   type: ReservationType,
+    //   args: { //lav args til input type med de specifikke args heri. lægges under schema/types
+    //     id: {type: new GraphQLNonNull(GraphQLID)},
+    //     guestId: { type: new GraphQLNonNull(GraphQLID) },
+    //     dateStart: {
+    //         type: new GraphQLNonNull(GraphQLString),
+    //         resolve: (source) => source.dateStart.toISOString(),
+    //     },
+    //     dateEnd: {
+    //         type: new GraphQLNonNull(GraphQLString),
+    //         resolve: (source) => source.dateEnd.toISOString(),
+    //     }
+    //   },
+    //   resolve: function (source, {id, guestId, dateStart, dateEnd}){
+    //     //Return method defineres i db/mongoose-api.js
+    //   },
+    // }
   }
-})
+});
 
 export default MutationType;

@@ -16,7 +16,7 @@ async function main() {
     server.use(express.json());
     server.use('/:fav.ico', (req, res) => res.sendStatus(204));
 
-    server.use('/graphql', (re, res) =>{
+    server.use('/graphql', (req, res) =>{
         const mutators = {
             ...mongooseApi.mutators,
         };

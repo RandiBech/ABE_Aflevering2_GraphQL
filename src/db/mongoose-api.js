@@ -1,17 +1,22 @@
+import mongooseClient from './mongoose-client';
+
 const hotelCollection = require('./hotel');
+const mongoose = require('mongoose');
 
-
-const mongooseApiWrapper = async() =>{
+const mongooseApiWrapper = async () => {
+    await mongooseClient();
     return {
         //queries
         mutators: {
-            createHotel: async ({input}) => {
+            createHotel: async ({ input }) => {
                 const response = await hotelCollection.create({
-                    _id: input.id, //skal vi have id med?
                     name: input.name,
                     managerId: input.managerId,
                     rooms: input.rooms
                 });
+                if (!response) {
+                    throw new Error('Not able to create hotel');
+                }
                 return response;
             }
         }
