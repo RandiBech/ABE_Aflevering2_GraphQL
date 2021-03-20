@@ -6,6 +6,16 @@ const mongooseApiWrapper = async () => {
     await mongooseClient();
     return {
         //queries
+        queries: {
+            getHotelFromId: async (hotelId) => {
+                const hotel = await hotelCollection.findById(hotelId); 
+                return hotel; 
+            },
+            getHotelsWithRooms: async () => {
+                const response = await hotelCollection.find({}); 
+                return response; 
+            }
+        },
         mutators: {
             createHotel: async ({ input }) => {
                 const response = await hotelCollection.create({
@@ -35,7 +45,15 @@ const mongooseApiWrapper = async () => {
                     throw new Error('Not able to create rooms for hotel');
                 }
                 return response;
-            }
+            },
+            createReservation: async ({input}) => {
+                const response = await hotelCollection.create({
+                    guestId: input.guestId,
+                    dateStart: input.dateStart,
+                    dateEnd: input.dateEnd
+                });
+                return response;
+            },
         }
     }
 }

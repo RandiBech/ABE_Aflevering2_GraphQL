@@ -1,11 +1,18 @@
+//import { load } from 'dotenv/types';
 import {
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLString,
     GraphQLNonNull,
     printSchema,
+    GraphQLList,
+    GraphQLID
   } from 'graphql';
-import {HotelType, ReservationType, RoomType} from './types/hotel-type';
+import {
+  HotelType, 
+  ReservationType, 
+  RoomType
+} from './types/hotel-type';
 
 const stringType = new GraphQLObjectType({
   name: 'mm',
@@ -18,6 +25,12 @@ const stringType = new GraphQLObjectType({
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
+    getAvailableRooms: { // Alex
+      type: new GraphQLList(new GraphQLNonNull(RoomType)),
+        resolve: async (source, args, { loaders }) => {
+          //return loaders.roomsByDate.load('latest');
+        },
+    },
     getHotel: { // Randi
       type: stringType,
       args: {
@@ -27,18 +40,29 @@ const QueryType = new GraphQLObjectType({
         return 'Hotelcreted';
       },
     },
+    getHotelsWithRooms: { // Mads
+         //lav args til input type med de specifikke args heri. lægges under schema/types
+        //Return method defineres i db/mongoose-api.js
+        type: new GraphQLList(new GraphQLNonNull(HotelType)),
+        resolve: async (source, args, {loaders}) => {
+          return loaders.getHotelsWithRooms({});
+        },
+    },
+    getHotelFromId: { // Mads
+         //lav args til input type med de specifikke args heri. lægges under schema/types
+        //Return method defineres i db/mongoose-api.js
+        type: HotelType, 
+        args: {
+          id: { type: new GraphQLNonNull(GraphQLID)},
+        },
+        resolve: function (source, args, {loaders}){
+          return loaders.getHotelFromId(args.id); 
+        },
+    },
     // getAvailableRooms: { // Alex
     //      //lav args til input type med de specifikke args heri. lægges under schema/types
     //     //Return method defineres i db/mongoose-api.js
     // },
-    // getHotelsWithRooms: { // Mads
-    //      //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     //Return method defineres i db/mongoose-api.js
-    // },
-    // getHotelFromId: { // Mads
-    //      //lav args til input type med de specifikke args heri. lægges under schema/types
-    //     //Return method defineres i db/mongoose-api.js
-    // }
   }
 })
 
