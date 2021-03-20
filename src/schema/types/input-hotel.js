@@ -8,7 +8,7 @@ import {
 
 import {RoomType} from './hotel-type';
 
-const HotelInput = new GraphQLInputObjectType({
+export const HotelInput = new GraphQLInputObjectType({
     name: 'HotelInput',
     fields: () => ({
         id: {type: new GraphQLNonNull(GraphQLID)},
@@ -18,9 +18,7 @@ const HotelInput = new GraphQLInputObjectType({
     })
 })
 
-export default HotelInput;
-
-const ReservationInput = new GraphQLInputObjectType({
+export const ReservationInput = new GraphQLInputObjectType({
     name: 'ReservatuinInput',
     fields: () => ({
         id: { type: new GraphQLNonNull(GraphQLID)},
@@ -36,4 +34,3 @@ const ReservationInput = new GraphQLInputObjectType({
     })
 })
 
-export default ReservationInput;
