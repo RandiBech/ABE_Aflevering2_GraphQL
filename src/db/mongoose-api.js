@@ -28,7 +28,15 @@ const mongooseApiWrapper = async () => {
                     throw new Error('Not able to create hotel');
                 }
                 return response;
-            }
+            },
+            createReservation: async ({input}) => {
+                const response = await hotelCollection.create({
+                    guestId: input.guestId,
+                    dateStart: input.dateStart,
+                    dateEnd: input.dateEnd
+                });
+                return response;
+            },
         }
     }
 }

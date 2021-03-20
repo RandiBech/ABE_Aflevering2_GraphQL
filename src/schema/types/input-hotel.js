@@ -21,7 +21,7 @@ export const HotelInput = new GraphQLInputObjectType({
 export const ReservationInput = new GraphQLInputObjectType({
     name: 'ReservatuinInput',
     fields: () => ({
-        id: { type: new GraphQLNonNull(GraphQLID)},
+        //id: { type: new GraphQLNonNull(GraphQLID)},
         guestId: { type: new GraphQLNonNull(GraphQLID) },
         dateStart: {
             type: new GraphQLNonNull(GraphQLString)

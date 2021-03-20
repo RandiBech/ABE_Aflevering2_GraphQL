@@ -5,11 +5,14 @@ import {
     GraphQLString,
     GraphQLNonNull,
     printSchema,
-    GraphQLID,
     GraphQLList,
+    GraphQLID
   } from 'graphql';
-import {HotelType, ReservationType, RoomType} from './types/hotel-type';
-import HotelInput from './types/input-hotel';
+import {
+  HotelType, 
+  ReservationType, 
+  RoomType
+} from './types/hotel-type';
 
 const stringType = new GraphQLObjectType({
   name: 'mm',
@@ -22,6 +25,12 @@ const stringType = new GraphQLObjectType({
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
+    getAvailableRooms: { // Alex
+      type: new GraphQLList(new GraphQLNonNull(RoomType)),
+        resolve: async (source, args, { loaders }) => {
+          //return loaders.roomsByDate.load('latest');
+        },
+    },
     getHotel: { // Randi
       type: stringType,
       args: {
