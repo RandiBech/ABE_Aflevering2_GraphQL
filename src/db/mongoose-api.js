@@ -14,6 +14,23 @@ const mongooseApiWrapper = async () => {
             getHotelsWithRooms: async () => {
                 const response = await hotelCollection.find({}); 
                 return response; 
+            },
+            getAvailableRoomsByDate: async () => {
+                const hotels = await hotelCollection.find({})
+                if (!hotels) {
+                    return 'No hotels'
+                }
+                let rooms = []
+                hotels.map((hotel) => {
+                    hotel.rooms.map(room => {
+                        room.reservations.map(reservation => {
+                            if (!reservation.guestId) {
+                                rooms.push({ "id": hotel.id, "name": hotel.name, room });
+                            }
+                        })
+                    })
+                })
+                return rooms
             }
         },
         mutators: {

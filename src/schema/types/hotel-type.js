@@ -29,9 +29,9 @@ export const RoomType = new GraphQLObjectType({
     name: 'Room',
     description: 'Room in hotel',
     fields: {
-        id: {type: new GraphQLNonNull(GraphQLID)},
+        id: {type: GraphQLID},
         roomNo: {type: GraphQLInt},
-        reservations: {type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(ReservationType)))}
+        reservations: {type: new GraphQLList(ReservationType)}
     }
 })
 

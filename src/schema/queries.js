@@ -5,8 +5,8 @@ import {
     GraphQLString,
     GraphQLNonNull,
     printSchema,
+    GraphQLID,
     GraphQLList,
-    GraphQLID
   } from 'graphql';
 import {
   HotelType, 
@@ -28,7 +28,7 @@ const QueryType = new GraphQLObjectType({
     getAvailableRooms: { // Alex
       type: new GraphQLList(new GraphQLNonNull(RoomType)),
         resolve: async (source, args, { loaders }) => {
-          //return loaders.roomsByDate.load('latest');
+          return loaders.getAvailableRoomsByDate();
         },
     },
     getHotel: { // Randi
