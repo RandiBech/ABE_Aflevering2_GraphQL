@@ -44,7 +44,7 @@ const MutationType = new GraphQLObjectType({
       args: { //lav args til input type med de specifikke args heri. lægges under schema/types
         input: { type: new GraphQLNonNull(ReservationInput) }
       },
-      resolve: function (source, {id, guestId, dateStart, dateEnd}){
+      resolve: function (source, {input},{mutators}){
         return mutators.createReservation({input});
       },
     }
