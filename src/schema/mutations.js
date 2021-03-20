@@ -6,25 +6,25 @@ import {
     GraphQLString,
     GraphQLNonNull,
     printSchema,
+    GraphQLID,
   } from 'graphql';
 import {HotelType, ReservationType, RoomType} from './types/hotel-type';
+import HotelInput from './types/input-hotel';
 
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     createHotel: { // Randi
       type: HotelType,
-      args: { //lav args til input type med de specifikke args heri. lægges under schema/types
-        id: {type: new GraphQLNonNull(GraphQLID)},
-        name: {type: new GraphQLNonNull(GraphQLString)},
-        managerId: {type: new GraphQLNonNull(GraphQLID)},
-        rooms: {type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(RoomType)))}
+      args: {
+       input: {type: new GraphQLNonNull(HotelInput)}
       },
-      resolve: function (source, {id, name, managerId, rooms}){
-        //Return method defineres i db/mongoose-api.js
-      }
+      resolve: function (source, {input}, {mutators}){
+        return mutators.createHotel({input});
+      },
     },
     createRoomToHotel: { // Randi
+      type: HotelType,
         //lav args til input type med de specifikke args heri. lægges under schema/types
         //Return method defineres i db/mongoose-api.js
     },
@@ -48,3 +48,5 @@ const MutationType = new GraphQLObjectType({
     }
   }
 })
+
+export default MutationType;
