@@ -12,8 +12,19 @@ const mongooseApiWrapper = async () => {
                 return hotel; 
             },
             getHotelsWithRooms: async () => {
-                const response = await hotelCollection.find({}); 
-                return response; 
+                try{
+                    const hotels = await hotelCollection.find({});
+                    if(hotels){
+                        return hotels;
+                    } 
+                    else
+                        throw ("Hotels not found")
+                } catch (error) {
+                    status(400).json({
+                        "title": "Uanble to read hotels",
+                        "deatil": error
+                    })
+                }
             },
             getAvailableRoomsByDate: async () => {
                 const hotels = await hotelCollection.find({})
