@@ -35,7 +35,7 @@ export const ReservationInput = new GraphQLInputObjectType({
 export const RoomInput = new GraphQLInputObjectType({
     name: 'RoomInput',
     fields: () => ({
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        //id: { type: new GraphQLNonNull(GraphQLID) },
         roomNo: { type: new GraphQLNonNull(GraphQLInt) },
         reservations: { type: GraphQLList(ReservationInput) }
     })
