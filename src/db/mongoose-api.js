@@ -8,6 +8,9 @@ const mongooseApiWrapper = async () => {
         queries: {
             getHotelFromId: async (hotelId) => {
                 const hotel = await hotelCollection.findById(hotelId); 
+                if (!hotel) {
+                    throw new Error('Not able to find hotel');
+                }
                 return hotel; 
             },
             getHotelsWithRooms: async () => {
@@ -57,6 +60,9 @@ const mongooseApiWrapper = async () => {
             },
             createRoomToHotel: async (hotelId, rooms) => {
                 const oldHotel = await hotelCollection.findById(hotelId);
+                if(!oldHotel) {
+                    throw new Error('The hotel does not exist');
+                }
                 const roomsToAdd = rooms;
                 let hotelRooms = oldHotel.rooms;
                 if(hotelRooms){
@@ -79,6 +85,9 @@ const mongooseApiWrapper = async () => {
                     dateStart: input.dateStart,
                     dateEnd: input.dateEnd
                 });
+                if (!response) {
+                    throw new Error('Not able to create reservation');
+                }
                 return response;
             },
         }
