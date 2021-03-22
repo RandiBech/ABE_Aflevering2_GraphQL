@@ -14,4 +14,6 @@ const UserType = new GraphQLObjectType({
         password: {type: new GraphQLNonNull(GraphQLString)},
         role: {type: new GraphQLNonNull(GraphQLString)}
     }
-})
+});
+
+export default UserType; 

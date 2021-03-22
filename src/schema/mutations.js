@@ -11,7 +11,6 @@ import { UnsupportedMediaType } from 'http-errors';
 import {
   HotelType, 
   ReservationType, 
-  UserType
 } from './types/hotel-type';
 
 import {
@@ -20,21 +19,31 @@ import {
   RoomInput,
 } from './types/input-hotel';
 
-import {UserInput} from './types/input-user';
+import UserInput from './types/input-user';
+import UserPayload from './types/payload-user'; 
 
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     //--user mutations
     createUser:{
-      tyep: UserType,
+      type: UserPayload,
       args:{
         input: {type: new GraphQLNonNull(UserInput)}
       },
-      resolve: function (source, {input}){
-        return
+      resolve: function (source, {input}, {mutators}){
+        return mutators.createUser({input});
       }
     },
+    // userCreate:{
+    //   type: UserPayload,
+    //   args: {
+    //     input: {type: UserInput},
+    //   },
+    //   resolve: async (source, {input}, {mutators}) => {
+    //     return mutators.userCreate({input}); 
+    //   },
+    // },
     //--hotel mutations
     createHotel: { // Randi
       type: HotelType,

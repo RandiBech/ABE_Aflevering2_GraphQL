@@ -20,6 +20,7 @@ const QueryType = new GraphQLObjectType({
 
     },
     getUser: {
+      
 
     },
     upgradeUser: {

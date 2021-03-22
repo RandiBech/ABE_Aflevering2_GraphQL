@@ -1,5 +1,8 @@
 import mongooseClient from './mongoose-client';
-import {roles} from 'scr/helpers/role';
+import role from '../helpers/role';
+const userCollection = require('./user'); 
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const hotelCollection = require('./hotel');
 
 
@@ -48,22 +51,25 @@ const mongooseApiWrapper = async () => {
             }
         },
         mutators: {
-            creaeUser: async ({input}) => {
+            createUser: async ({input}) => {
+                const payload = {errors: []}; 
                 try {
                     const hashedPassword = await bcrypt.hash(input.password, saltRounds);
                     const user = await userCollection.create({
                         name: input.name,
                         password: hashedPassword,
-                        role: roles.User,
+                        role: role.User,
                         email: `${input.name}@hotelfour.dk`
                     });
-                    res.send(user);
+                    payload.user = user; 
                 } catch (error) {
-                    res.status(400).json({
-                        "title": "Unable to create student record",
-                        "detail": error
-                    })
+                    throw new Error('Not able to create a new user', error); 
+                    // sendStatus(400).json({
+                    //     "title": "Unable to create student record",
+                    //     "detail": error
+                    // })
                 }
+                return payload; 
             },
             //--hotel mutators
             createHotel: async ({ input }) => {
