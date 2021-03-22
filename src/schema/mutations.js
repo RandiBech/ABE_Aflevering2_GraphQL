@@ -6,22 +6,36 @@ import {
   printSchema,
   GraphQLID,
 } from 'graphql';
+import { UnsupportedMediaType } from 'http-errors';
 
 import {
   HotelType, 
   ReservationType, 
-  RoomType
+  UserType
 } from './types/hotel-type';
 
 import {
   HotelInput,
   ReservationInput,
-  RoomInput
+  RoomInput,
 } from './types/input-hotel';
+
+import {UserInput} from './types/input-user';
 
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
+    //--user mutations
+    createUser:{
+      tyep: UserType,
+      args:{
+        input: {type: new GraphQLNonNull(UserInput)}
+      },
+      resolve: function (source, {input}){
+        return
+      }
+    },
+    //--hotel mutations
     createHotel: { // Randi
       type: HotelType,
       args: {
@@ -31,7 +45,6 @@ const MutationType = new GraphQLObjectType({
         return mutators.createHotel({input});
       },
     },
-
     createRoomToHotel: { // Randi
       type: HotelType,
       args: {
@@ -42,7 +55,6 @@ const MutationType = new GraphQLObjectType({
          return mutators.createRoomToHotel(args.hotelId, args.input);
        },
     },
-
     createReservation: { // Alex
       type: ReservationType,
       args: { 
