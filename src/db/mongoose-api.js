@@ -92,10 +92,6 @@ const mongooseApiWrapper = async () => {
           payload.user = user;
         } catch (error) {
           throw new Error("Not able to create a new user", error);
-          // sendStatus(400).json({
-          //     "title": "Unable to create student record",
-          //     "detail": error
-          // })
         }
         return payload;
       },
@@ -136,17 +132,28 @@ const mongooseApiWrapper = async () => {
         }
         return response;
       },
-      createReservation: async ({ input }) => {
-        const response = await hotelCollection.create({
-          guestId: input.guestId,
-          dateStart: input.dateStart,
-          dateEnd: input.dateEnd,
-        });
-        if (!response) {
-          throw new Error("Not able to create reservation");
-        }
-        return response;
-      },
+      //   createReservation: async ({ input }, hotelId) => {
+      //     const oldHotel = await hotelCollection.findById(hotelId);
+      //     if (!oldHotel) {
+      //       throw new Error("The hotel does not exist");
+      //     }
+      //     const reservationsToAdd = input;
+      //     let hotelReservations = oldHotel.rooms.reservations;
+      //     if (hotelReservations) {
+      //       hotelReservations.push(reservationsToAdd);
+      //     } else {
+      //       hotelReservations = reservationsToAdd;
+      //     }
+      //     const response = await hotelCollection.create({
+      //       guestId: input.guestId,
+      //       dateStart: input.dateStart,
+      //       dateEnd: input.dateEnd,
+      //     });
+      //     if (!response) {
+      //       throw new Error("Not able to create reservation");
+      //     }
+      //     return response;
+      //   },
     },
   };
 };

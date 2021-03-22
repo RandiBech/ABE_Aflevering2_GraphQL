@@ -15,7 +15,7 @@ roomNo
 }
 
 mutation {
-createRoomToHotel(hotelId: "60560a9010d22b3080b94896", input: {roomNo: 30}) {
+createRoomToHotel(hotelId: "603e02dfcc68d8751453b861", input: {roomNo: 30}) {
 id
 rooms{id roomNo reservations{guestId}}
 }
@@ -33,6 +33,7 @@ roomNo
 }
 }
 
+query{
 getHotelsWithRooms{
 id
 managerId
@@ -58,3 +59,13 @@ email
 Login
 
 query{login(input:{name:"mads" password:"1234"})}
+
+query{
+getAvailableRooms{
+id
+roomNo
+reservations {
+id
+}
+}
+}
