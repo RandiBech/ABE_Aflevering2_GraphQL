@@ -35,15 +35,6 @@ const MutationType = new GraphQLObjectType({
         return mutators.createUser({input});
       }
     },
-    // userCreate:{
-    //   type: UserPayload,
-    //   args: {
-    //     input: {type: UserInput},
-    //   },
-    //   resolve: async (source, {input}, {mutators}) => {
-    //     return mutators.userCreate({input}); 
-    //   },
-    // },
     //--hotel mutations
     createHotel: { // Randi
       type: HotelType,

@@ -43,6 +43,8 @@ roomNo
 }
 }
 
+Create user
+
 mutation {
 createUser(input: {name: "mads", password: "1234"}) {
 user {
@@ -52,3 +54,7 @@ email
 }
 }
 }
+
+Login
+
+query{login(input:{name:"mads" password:"1234"})}
