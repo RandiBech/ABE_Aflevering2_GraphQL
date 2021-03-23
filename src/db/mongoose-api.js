@@ -79,6 +79,7 @@ const mongooseApiWrapper = async () => {
       },
     },
     mutators: {
+      //--user mutators
       createUser: async ({ input }) => {
         const payload = { errors: [] };
         try {

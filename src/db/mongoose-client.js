@@ -1,16 +1,7 @@
-
-
 export default async function mongooseClient() {
     const mongoose = require('mongoose');
-    //const users = require('../usersList')
-    // const hotels = require('../hotels');
-    // var Hotel = require('./hotel');
-    // var User = require('./user');
-
 
     let dbUrl = 'mongodb+srv://dbMads:Rf0e3duLljH7u4fH@teamabecluster.gk0mk.mongodb.net/HotelFour';
-    
-    //const mongoosePool = new mongoose.Model(dbUrl);
     
     if (process.env.NODE_ENV === 'production') {
         dbUrl = process.env.MONGODB_URI;
@@ -39,7 +30,6 @@ export default async function mongooseClient() {
         }
     }
 
-
     const gracefulShutdown = (msg, callback) => {
         mongoose.connection.close(() => {
             console.log(`Mongoose disconnected through ${msg}`);
@@ -61,26 +51,7 @@ export default async function mongooseClient() {
         });
     });
 
-
-    // async function createDummyData() {
-
-    //     const db = mongoose.connection;
-
-    //     try {
-    //         let savedDocument = await Hotel.create(hotels);
-    //         let dummuUsers = await User.create(users);
-    //         console.log(savedDocument);
-    //         console.log(dummuUsers);
-    //     } catch (err) {
-    //         console.log(err)
-    //     } finally {
-    //         await db.close();
-    //     }
-
-    // }
-
     main();
-    // createDummyData(); 
 
     require('./hotel');
 }

@@ -30,7 +30,6 @@ const MutationType = new GraphQLObjectType({
     },
     //--hotel mutations
     createHotel: {
-      // Randi
       type: HotelType,
       args: {
         input: { type: new GraphQLNonNull(HotelInput) },
@@ -40,7 +39,6 @@ const MutationType = new GraphQLObjectType({
       },
     },
     createRoomToHotel: {
-      // Randi
       type: HotelType,
       args: {
         hotelId: { type: new GraphQLNonNull(GraphQLID) },
@@ -51,7 +49,6 @@ const MutationType = new GraphQLObjectType({
       },
     },
     // createReservation: {
-    //   // Alex
     //   type: ReservationType,
     //   args: {
     //     hotelId: { type: new GraphQLNonNull(GraphQLID) },

@@ -1,14 +1,11 @@
 import {
-  GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
-  printSchema,
   GraphQLID,
   GraphQLList,
-  GraphQLInputObjectType,
 } from "graphql";
-import { HotelType, ReservationType, RoomType } from "./types/hotel-type";
+import { HotelType, RoomType } from "./types/hotel-type";
 import UserInput from "./types/input-user";
 
 const QueryType = new GraphQLObjectType({
@@ -25,22 +22,18 @@ const QueryType = new GraphQLObjectType({
       },
     },
     getAvailableRooms: {
-      // Alex
       type: new GraphQLList(new GraphQLNonNull(RoomType)),
       resolve: async (source, args, { loaders }) => {
         return loaders.getAvailableRoomsByDate();
       },
     },
     getHotelsWithRooms: {
-      // Mads
-
       type: new GraphQLList(new GraphQLNonNull(HotelType)),
       resolve: async (source, args, { loaders }) => {
         return loaders.getHotelsWithRooms({});
       },
     },
     getHotelFromId: {
-      // Mads
       type: HotelType,
       args: {
         id: { type: new GraphQLNonNull(GraphQLID) },

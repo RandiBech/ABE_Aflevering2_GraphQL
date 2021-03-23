@@ -16,7 +16,6 @@ const UserPayload = new GraphQLObjectType({
             ),
         },
         user: { type: UserType },
-        // authToken: { type: GraphQLString },
     }),
 });
 
