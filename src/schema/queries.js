@@ -29,8 +29,8 @@ const QueryType = new GraphQLObjectType({
     },
     getHotelsWithRooms: {
       type: new GraphQLList(new GraphQLNonNull(HotelType)),
-      resolve: async (source, args, { loaders }) => {
-        return loaders.getHotelsWithRooms({});
+      resolve: async (source, args, { loaders }, { currentUser }) => {
+        return loaders.getHotelsWithRooms.load({ currentUser });
       },
     },
     getHotelFromId: {

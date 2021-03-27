@@ -38,7 +38,7 @@ mutation {
         }
     }) {
         id
-        name
+        name 
         managerId
         rooms {
         id
@@ -96,4 +96,10 @@ query{
             id
         }
     }
+}
+
+Request header med token:
+
+{
+	"Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFuZGkgSGVqIiwiZW1haWwiOiJSYW5kaSBIZWpAaG90ZWxmb3VyLmRrIiwicm9sZSI6IlVzZXIiLCJpYXQiOjE2MTY4NDI3MDN9.MJWqm-67mQI7Jg9WMc-llk4bJqBXVi2YNcywTLNeZVU"
 }

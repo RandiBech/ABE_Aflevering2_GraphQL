@@ -4,6 +4,7 @@ import * as config from "./config";
 import mongooseApiWrapper from "./db/mongoose-api.js";
 import { graphqlHTTP } from "express-graphql";
 import { schema } from "./schema";
+import DataLoader from 'dataloader';
 
 async function main() {
   const mongooseApi = await mongooseApiWrapper();
@@ -16,16 +17,24 @@ async function main() {
   //tjek for Auth token her? listin 8.23
   // CurrentUser sættes her
 
-  server.use("/graphql", (req, res) => {
+  server.use("/graphql", async (req, res) => {
+    const authToken =  req && req.headers && req.headers.authorization ? req.headers.authorization : null;
+    const currentUser = await mongooseApi.userFromAuthToken(authToken);
+    if (authToken && !currentUser){
+      return res.status(401).send({
+        errors: [{message: 'Invalid access token'}],
+      });
+    }
     const loaders = {
-      ...mongooseApi.queries,
+      getHotelsWithRooms: new DataLoader(() => mongooseApi.queries.getHotelsWithRooms({currentUser}))
+      //...mongooseApi.queries,
     };
     const mutators = {
       ...mongooseApi.mutators,
     };
     graphqlHTTP({
       schema,
-      context: { mongooseApi, loaders, mutators, CurrentUser },
+      context: { mongooseApi, loaders, mutators, currentUser },
       graphiql: { headerEditorEnabled: true },
       customFormatErrorFn: (err) => {
         const errorReport = {

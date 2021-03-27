@@ -1,5 +1,6 @@
 import mongooseClient from "./mongoose-client";
 import role from "../helpers/role";
+import user from "./user";
 const userCollection = require("./user");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -9,11 +10,33 @@ const jwt = require("jsonwebtoken");
 const mongooseApiWrapper = async () => {
   await mongooseClient();
   return {
+    userFromAuthToken: async (authToken) => {
+      if(!authToken) {
+        return null;
+      }
+      let userName = '';
+      jwt.verify(authToken, process.env.JWT_SECRET, (error, decoded) => {
+        if(error){
+          throw new Error("Unauthorized");
+        }
+        console.log('decoded:', decoded);
+        userName = decoded.name;
+      })
+      const user = await userCollection.findOne({name: userName});
+        if(!user){
+          return null;
+        }
+        console.log('user found', user);
+        return user; 
+    },
+
     queries: {
+      //user-queries
       login: async ({ input }) => {
         debugger;
         try {
           const user = await userCollection.findOne({ name: input.name });
+          console.log(user);
           if (user) {
             const compareResult = await bcrypt.compare(
               input.password,
@@ -40,6 +63,7 @@ const mongooseApiWrapper = async () => {
           throw new Error("Unknown server error");
         }
       },
+      //hotel-queries
       getHotelFromId: async (hotelId) => {
         const hotel = await hotelCollection.findById(hotelId);
         if (!hotel) {
@@ -47,11 +71,18 @@ const mongooseApiWrapper = async () => {
         }
         return hotel;
       },
-      getHotelsWithRooms: async () => {
+      getHotelsWithRooms: async ({currentUser}) => {
+        console.log('currentUser in get:', currentUser);
+        if(!currentUser){
+          throw new Error("Unauthorized");
+        }
         try {
           const hotels = await hotelCollection.find({});
           if (hotels) {
-            return hotels;
+            const promise = await Promise.all(hotels);
+            console.log('promise:', promise[0]);
+            return promise;
+            //return hotels;
           } else throw "Hotels not found";
         } catch (error) {
           status(400).json({
